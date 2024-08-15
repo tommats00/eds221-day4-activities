@@ -1,0 +1,82 @@
+---
+title: "EDS 221 Day 4 End of Day"
+author: "Tom Gibbens-Matsuyama"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## For Loops Revisited
+
+# Task 1
+
+```{r}
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
+              "Saturday", "Sunday")
+transects <- c("Transect A", "Transect B", "Transect C")
+
+matrix_weekdays <- matrix(nrow = length(weekdays),
+                          ncol = length(transects))
+
+
+for (i in seq_along(weekdays)) {
+  for (j in seq_along(transects)){ 
+    matrix_weekdays[i, j] <- (paste(weekdays[i], "-", transects[j]))
+  }
+}
+  
+matrix_weekdays <- matrix(nrow = length(weekdays),
+                          ncol = length(transects))
+```
+
+# Task 2 
+
+```{r}
+force_function <- function(mass, accel) {
+  print(paste("The resulting force is", mass * accel,
+              "Newtons")) 
+}
+
+force_function(10, 15)
+```
+
+# Task 3 
+
+```{r}
+# first create data frame
+library(tidyverse)
+
+fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracude", "Caranx ignobilis"), 
+                         common_name = c("Milkfish", "Great barracuda", "Giant trevally"),
+                         a_est = c(0.0905, 0.0181, 0.0353),
+                         b_est = c(2.52, 3.27, 3.05))
+
+fish_vector <- seq(from = 0, to = 100, by = 1)
+
+
+fish_weight <- function(fish_name, tot_length) {
+  data_name <- filter(fish_parms, common_name == fish_name)
+  w = data_name$a_est * (tot_length ^ data_name$b_est)
+  print(w)
+}
+
+fish_weight("Milkfish",10)
+fish_weight("Great barracuda",10)
+
+milk_fish_weights <- fish_weight("Milkfish", fish_vector)
+```
+
+# Task 4 
+
+```{r}
+wave_power <- function(wave_height, wave_period) {
+  w = 0.5 * (wave_height^2) * wave_period
+  print(w)
+}
+
+wave_power(0, 8)
+
+wave_power(seq(from = 0, to = 3, by = 0.2), 8)
+```
+
